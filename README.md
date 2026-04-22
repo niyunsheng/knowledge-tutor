@@ -10,7 +10,7 @@ By using this skill, your collaboration with the LLM transforms into a targeted 
 
 ## Project Overview
 
-`openclaw-skill-knowledge-tutor` seamlessly integrates into your daily chat interactions, acting as both an active listener and a proactive teacher. It builds a highly personalized Markdown knowledge base dedicated to your specific knowledge gaps. You can view, edit, and review these Markdown files directly at any time.
+`knowledge-tutor` seamlessly integrates into your daily chat interactions, acting as both an active listener and a proactive teacher. It builds a highly personalized Markdown knowledge base dedicated to your specific knowledge gaps. You can view, edit, and review these Markdown files directly at any time.
 
 It performs two core functions:
 1. **Passive Knowledge Extraction:** Monitors your chat sessions for valuable technical insights and quietly structures them into your personal Markdown knowledge base, focusing specifically on areas where you showed room for improvement.
@@ -24,13 +24,47 @@ It performs two core functions:
 
 ## Installation
 
-The easiest way to install this skill is to simply ask your OpenClaw agent to do it for you. Send the following message in your chat:
+This skill is built on standard Markdown prompting, making it highly portable across modern AI agent frameworks.
 
-```text
-please install the skill from https://github.com/niyunsheng/openclaw-skill-knowledge-tutor
+### OpenClaw
+**Via ClawHub**
+```bash
+openclaw skills install knowledge-tutor
+```
+**Or install manually**
+```bash
+mkdir -p ~/.openclaw/skills/knowledge-tutor
+curl -o ~/.openclaw/skills/knowledge-tutor/SKILL.md \
+  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
 ```
 
-Alternatively, you can manually clone this repository into your OpenClaw skills directory.
+### Claude Code
+```bash
+mkdir -p ~/.claude/skills/knowledge-tutor
+curl -o ~/.claude/skills/knowledge-tutor/SKILL.md \
+  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
+```
+
+### OpenAI Codex CLI
+```bash
+mkdir -p ~/.codex/skills/knowledge-tutor
+curl -o ~/.codex/skills/knowledge-tutor/SKILL.md \
+  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
+```
+
+### Cursor
+```bash
+mkdir -p .cursor/rules
+curl -o .cursor/rules/knowledge-tutor.mdc \
+  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
+```
+
+### Google Antigravity
+```bash
+mkdir -p ~/.gemini/antigravity/skills/knowledge-tutor
+curl -o ~/.gemini/antigravity/skills/knowledge-tutor/SKILL.md \
+  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
+```
 
 *(Note: Ensure the OpenClaw agent has necessary file system permissions to read and write to the target directory. By default, notes are stored in a `knowledge_base` folder next to your OpenClaw `memory` directory. You can easily change this by simply telling the agent your preferred path in the chat!)*
 

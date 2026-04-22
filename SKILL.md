@@ -1,5 +1,5 @@
 ---
-name: openclaw-skill-knowledge-tutor
+name: knowledge-tutor
 triggers:
   - on_message
   - cron

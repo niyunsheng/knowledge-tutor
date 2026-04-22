@@ -10,7 +10,7 @@
 
 ## 项目概述
 
-`openclaw-skill-knowledge-tutor` 会无缝融入你日常的对话交互中，不仅扮演一个积极的倾听者，更是你主动的导师。它会为你建立一个高度个性化的 Markdown 知识库，专门攻克你欠缺的知识点。你随时可以直接查看、编辑和复习这些针对性极强的 Markdown 文件。
+`knowledge-tutor` 会无缝融入你日常的对话交互中，不仅扮演一个积极的倾听者，更是你主动的导师。它会为你建立一个高度个性化的 Markdown 知识库，专门攻克你欠缺的知识点。你随时可以直接查看、编辑和复习这些针对性极强的 Markdown 文件。
 
 它执行两项核心功能：
 1. **被动知识提取：** 监听你在对话中产生的高价值技术见解，并默默地将它们结构化到你的个人 Markdown 知识库中，尤其关注你在对话中表现出薄弱或需要改进的技术点。
@@ -24,13 +24,47 @@
 
 ## 安装指南
 
-最简单的安装方式是直接让 OpenClaw 帮你安装。你只需要在对话中发送这个仓库的链接：
+本技能基于标准 Markdown Prompt 构建，完美兼容市面上主流的 AI Agent 框架。
 
-```text
-请帮我安装这个技能：https://github.com/niyunsheng/openclaw-skill-knowledge-tutor
+### OpenClaw
+**通过 ClawHub 安装**
+```bash
+openclaw skills install knowledge-tutor
+```
+**或手动安装**
+```bash
+mkdir -p ~/.openclaw/skills/knowledge-tutor
+curl -o ~/.openclaw/skills/knowledge-tutor/SKILL.md \
+  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
 ```
 
-或者，你也可以手动将此代码库克隆到你的 OpenClaw skills 目录中。
+### Claude Code
+```bash
+mkdir -p ~/.claude/skills/knowledge-tutor
+curl -o ~/.claude/skills/knowledge-tutor/SKILL.md \
+  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
+```
+
+### OpenAI Codex CLI
+```bash
+mkdir -p ~/.codex/skills/knowledge-tutor
+curl -o ~/.codex/skills/knowledge-tutor/SKILL.md \
+  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
+```
+
+### Cursor
+```bash
+mkdir -p .cursor/rules
+curl -o .cursor/rules/knowledge-tutor.mdc \
+  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
+```
+
+### Google Antigravity
+```bash
+mkdir -p ~/.gemini/antigravity/skills/knowledge-tutor
+curl -o ~/.gemini/antigravity/skills/knowledge-tutor/SKILL.md \
+  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
+```
 
 *(注意：请确保 OpenClaw Agent 拥有读取和写入目标目录的文件系统权限。默认情况下，笔记会保存在与 OpenClaw `memory` 同级的 `knowledge_base` 文件夹中。你完全可以在对话中直接告诉 Agent 更改存储路径！该 Skill 加载后将自动生效。)*
 
