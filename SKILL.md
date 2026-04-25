@@ -1,5 +1,10 @@
 ---
 name: knowledge-tutor
+description: "An anti-cognitive-offloading skill. Passively extracts technical knowledge from conversations into a Markdown knowledge base, and proactively quizzes you via Socratic questioning to strengthen active recall. Activates on: on_message (knowledge extraction), cron (scheduled quizzing). ALL conversation types with technical depth."
+version: 1.0.0
+author: niyunsheng
+homepage: https://github.com/niyunsheng/knowledge-tutor
+license: MIT
 triggers:
   - on_message
   - cron
@@ -26,12 +31,12 @@ When triggered by `on_message`, perform the following steps:
 3. **Extraction & Formatting:** Extract the core technical concept, context, and solution. Format this extracted knowledge into a clear, structured Markdown document written entirely in **the user's conversational language**.
 4. **File Operations:**
    - Determine a concise topic name for the file (e.g., `Docker_Networking`).
-   - Determine the target directory. By default, create a `knowledge_base` directory at the same level as your OpenClaw `memory` directory. **If the user has previously instructed you to use a custom directory**, use that custom path instead.
+   - Determine the target directory. By default, create a `knowledge_base` directory in the user's home directory (e.g., `~/knowledge_base/`). **If the user has previously instructed you to use a custom directory**, use that custom path instead.
    - The file path should follow the convention: `<Target_Directory>/YYYY-MM-DD_TopicName.md`.
-   - Use file system tools (e.g., `fs.readFile`) to check if a file with a similar topic already exists.
+   - Use file system tools to check if a file with a similar topic already exists.
    - **If it exists:** Read the existing file. Merge the new insights into the existing content. You must append a section titled `## Update History` (in the user's language) detailing what was added and when.
    - **If it does not exist:** Create a new file.
-   - Use file system tools (e.g., `fs.writeFile` or `fs.appendFile`) to save the finalized markdown content to the file.
+   - Use file system tools to save the finalized markdown content to the file.
 
 ---
 
@@ -39,10 +44,10 @@ When triggered by `on_message`, perform the following steps:
 
 When triggered by the `cron` schedule (default: `0 15 * * *` - daily at 3:00 PM), perform the following steps:
 
-1. **Locate Target Directory:** Determine the active `knowledge_base` directory based on the logic described in Phase 1 (defaulting to beside the `memory` directory, or checking user preferences).
-2. **Scan Knowledge Base:** Use file system tools (e.g., `fs.readdir`) to list all files in the target directory.
+1. **Locate Target Directory:** Determine the active `knowledge_base` directory based on the logic described in Phase 1 (defaulting to `~/knowledge_base/`, or checking user preferences).
+2. **Scan Knowledge Base:** Use file system tools to list all files in the target directory.
 3. **Select Topic:** Randomly select one Markdown file from the directory.
-4. **Read Content:** Use file system tools (e.g., `fs.readFile`) to read the contents of the selected file.
+4. **Read Content:** Use file system tools to read the contents of the selected file.
 5. **Formulate Question:** Based on the content, formulate an open-ended, Socratic question designed to test the user's fundamental understanding of the topic. The question should force active recall, not just recognition.
 6. **Ask the User:** Send the generated question to the user. **The question MUST be in the same language as the notes/the user's typical language**.
 7. **Evaluate & Guide:** When the user responds, evaluate their answer against the knowledge base content.

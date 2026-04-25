@@ -1,12 +1,14 @@
-# OpenClaw Skill: Knowledge Tutor
+# Knowledge Tutor
 
 [English](./README.md) | 简体中文
 
 ## 核心理念：不要让 AI 使你变笨
 
-随着大语言模型 (LLMs) 的能力变得越来越强，人类面临着认知卸载（cognitive offloading）的真实风险——因为我们单纯地依赖 AI 替我们思考，我们反而可能会变得“更笨”。然而，情况并非必须如此。LLMs 完全可以成为我们的个性化学习导师，专门针对我们的知识盲区进行突破，助力我们不断成长。
+用 AI 工具，一个真实的担忧是：**AI 主导了思考，人沦为附属品。** 你问，它想。你复制粘贴，它创造。久而久之，你不再深度思考，变得依赖——人不再是主导者。
 
-通过使用这个 Skill，你与 LLM 的互动将转变为一个充满针对性的知识沉淀过程。它能确保你的个人能力持续提升，让 AI 成为磨砺你思维的利器，而不是让你大脑生锈的拐杖。
+但是，更好地使用 AI，反而可以让你进步更快。**关键在于「反思 + 回顾」。** 遇到一个不懂的问题，和 AI 交流过程中搞明白了——很好。但如果没有沉淀下来，下次遇到同样的问题你还是不懂。如果你沉淀下来并经过自己的反思消化，你就变得更强了。
+
+这正是这个 Skill 做的事：它自动从你和 AI 的对话中提取知识，并在之后主动测验你，确保你真正学会了。**AI 始终是强大的工具——你的个性化导师——但你仍然是主导者，而且会越来越强。**
 
 ## 项目概述
 
@@ -24,51 +26,21 @@
 
 ## 安装指南
 
-本技能基于标准 Markdown Prompt 构建，完美兼容市面上主流的 AI Agent 框架。
-
-### OpenClaw
-**通过 ClawHub 安装**
-```bash
-openclaw skills install knowledge-tutor
-```
-**或手动安装**
-```bash
-mkdir -p ~/.openclaw/skills/knowledge-tutor
-curl -o ~/.openclaw/skills/knowledge-tutor/SKILL.md \
-  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
-```
-
-### Claude Code
-```bash
-mkdir -p ~/.claude/skills/knowledge-tutor
-curl -o ~/.claude/skills/knowledge-tutor/SKILL.md \
-  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
-```
-
-### OpenAI Codex CLI
-```bash
-mkdir -p ~/.codex/skills/knowledge-tutor
-curl -o ~/.codex/skills/knowledge-tutor/SKILL.md \
-  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
-```
-
-### Cursor
-```bash
-mkdir -p .cursor/rules
-curl -o .cursor/rules/knowledge-tutor.mdc \
-  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
-```
-
 ### Google Antigravity
+
 ```bash
 mkdir -p ~/.gemini/antigravity/skills/knowledge-tutor
 curl -o ~/.gemini/antigravity/skills/knowledge-tutor/SKILL.md \
   https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
 ```
 
-*(注意：请确保 OpenClaw Agent 拥有读取和写入目标目录的文件系统权限。默认情况下，笔记会保存在与 OpenClaw `memory` 同级的 `knowledge_base` 文件夹中。你完全可以在对话中直接告诉 Agent 更改存储路径！该 Skill 加载后将自动生效。)*
+*(注意：请确保 Agent 拥有读取和写入目标目录的文件系统权限。默认情况下，笔记会保存在 `knowledge_base` 文件夹中。你完全可以在对话中直接告诉 Agent 更改存储路径！)*
 
 ## 使用方法
 
 - **日常对话即可：** 像往常一样与你的 Agent 进行深度的技术探讨。该 Skill 会自动发现并保存有价值的知识。
 - **每日复习：** 默认情况下，Agent 会在每天 15:00 自动发起一次辅导会话，对你进行知识点测验。*(你可以通过修改 `SKILL.md` 中的 `cron_schedule`，或者直接在对话中让 Agent 帮你修改，来自由更换你喜欢的复习时间。)*
+
+## 许可证
+
+[MIT](./LICENSE)

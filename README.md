@@ -1,12 +1,14 @@
-# OpenClaw Skill: Knowledge Tutor
+# Knowledge Tutor
 
 English | [简体中文](./README_zh.md)
 
 ## The Philosophy: Don't Let AI Make You Dumber
 
-As Large Language Models (LLMs) become increasingly powerful, there is a real risk of cognitive offloading—humans might become "dumber" because we simply rely on AI to think for us. However, it doesn't have to be this way. LLMs can act as our personalized learning tutors, specifically targeting our weaknesses and helping us grow.
+Using AI tools comes with a real concern: **AI dominates the thinking, and you become an accessory.** You ask, it reasons. You copy-paste, it creates. Over time, you stop thinking deeply and become dependent — the human is no longer in charge.
 
-By using this skill, your collaboration with the LLM transforms into a targeted knowledge-building process. It ensures your abilities continuously improve, turning the AI into a tool that sharpens your mind rather than dulling it.
+But using AI *well* can actually make you grow faster. **The key is reflection and review.** You encounter a problem you don't understand, and through conversation with AI you figure it out — great. But if you don't consolidate that knowledge, next time you'll be just as lost. If you do reflect and internalize it, you become genuinely stronger.
+
+That's exactly what this skill does: it automatically captures the knowledge from your AI conversations and actively quizzes you later to make sure you truly learned it. **AI stays a powerful tool — your personalized tutor — but you remain in charge, and you keep getting smarter.**
 
 ## Project Overview
 
@@ -22,53 +24,23 @@ It performs two core functions:
 - **Socratic Quizzing:** Tests your understanding through guided, open-ended questions rather than simple multiple-choice.
 - **Adaptive Language:** The skill's internal logic and reasoning are driven by English for optimal LLM instruction adherence. However, **all user interactions and stored knowledge base notes will automatically adapt to the language you use during the conversation**.
 
-## Installation
-
-This skill is built on standard Markdown prompting, making it highly portable across modern AI agent frameworks.
-
-### OpenClaw
-**Via ClawHub**
-```bash
-openclaw skills install knowledge-tutor
-```
-**Or install manually**
-```bash
-mkdir -p ~/.openclaw/skills/knowledge-tutor
-curl -o ~/.openclaw/skills/knowledge-tutor/SKILL.md \
-  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
-```
-
-### Claude Code
-```bash
-mkdir -p ~/.claude/skills/knowledge-tutor
-curl -o ~/.claude/skills/knowledge-tutor/SKILL.md \
-  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
-```
-
-### OpenAI Codex CLI
-```bash
-mkdir -p ~/.codex/skills/knowledge-tutor
-curl -o ~/.codex/skills/knowledge-tutor/SKILL.md \
-  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
-```
-
-### Cursor
-```bash
-mkdir -p .cursor/rules
-curl -o .cursor/rules/knowledge-tutor.mdc \
-  https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
-```
+## Install
 
 ### Google Antigravity
+
 ```bash
 mkdir -p ~/.gemini/antigravity/skills/knowledge-tutor
 curl -o ~/.gemini/antigravity/skills/knowledge-tutor/SKILL.md \
   https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
 ```
 
-*(Note: Ensure the OpenClaw agent has necessary file system permissions to read and write to the target directory. By default, notes are stored in a `knowledge_base` folder next to your OpenClaw `memory` directory. You can easily change this by simply telling the agent your preferred path in the chat!)*
+*(Note: Ensure the agent has necessary file system permissions to read and write to the target directory. By default, notes are stored in a `knowledge_base` folder. You can easily change this by simply telling the agent your preferred path in the chat!)*
 
 ## Usage
 
 - **Simply Chat:** Have deep technical discussions with your agent. The skill will automatically detect and save the knowledge.
 - **Daily Reviews:** The agent will automatically initiate a tutoring session daily at 15:00 (3:00 PM) to test your knowledge. *(You can customize this time by modifying the `cron_schedule` in `SKILL.md` or asking the agent to change it).*
+
+## License
+
+[MIT](./LICENSE)
