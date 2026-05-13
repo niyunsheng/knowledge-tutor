@@ -15,12 +15,14 @@ That's exactly what this skill does: it automatically captures the knowledge fro
 `knowledge-tutor` seamlessly integrates into your daily chat interactions, acting as both an active listener and a proactive teacher. It builds a highly personalized Markdown knowledge base dedicated to your specific knowledge gaps. You can view, edit, and review these Markdown files directly at any time.
 
 It performs two core functions:
-1. **Passive Knowledge Extraction:** Monitors your chat sessions for valuable technical insights and quietly structures them into your personal Markdown knowledge base, focusing specifically on areas where you showed room for improvement.
+1. **Passive Knowledge Extraction:** Intelligently detects valuable technical insights from your conversations and structures them into your personal Markdown knowledge base. Uses a lightweight pre-scan to avoid unnecessary extraction, checks for overlap with existing notes, and works adaptively across short or long conversations.
 2. **Active Spaced Repetition:** Utilizes scheduled tasks to review your knowledge base and proactively quizzes you using Socratic questioning, ensuring you actively recall and retain complex technical concepts.
 
 ## Features
 
-- **Automated Note-Taking:** Extracts core concepts and solutions from your conversations without manual intervention, saving them in Markdown format.
+- **Restrained Extraction:** Uses a minimal-token pre-scan to judge whether extraction is worth doing. Defaults to "no" — only extracts when there's genuine technical depth. Never duplicates existing knowledge base content.
+- **Adaptive Scanning:** Scan scope adjusts to conversation length. Long multi-turn conversations can yield multiple extractions, each covering a distinct topic with no overlap.
+- **Manual Trigger:** Prefer to decide for yourself? Use keywords like "帮我总结", "提取知识", "记录一下", "save this", or "extract knowledge" to manually trigger extraction at any time, bypassing the pre-scan.
 - **Socratic Quizzing:** Tests your understanding through guided, open-ended questions rather than simple multiple-choice.
 - **Adaptive Language:** The skill's internal logic and reasoning are driven by English for optimal LLM instruction adherence. However, **all user interactions and stored knowledge base notes will automatically adapt to the language you use during the conversation**.
 
@@ -38,7 +40,8 @@ curl -o ~/.gemini/antigravity/skills/knowledge-tutor/SKILL.md \
 
 ## Usage
 
-- **Simply Chat:** Have deep technical discussions with your agent. The skill will automatically detect and save the knowledge.
+- **Simply Chat:** Have deep technical discussions with your agent. The skill will adaptively detect and save knowledge, avoiding redundant extraction.
+- **Manual Trigger:** Say keywords like "extract knowledge", or "save this" to manually trigger extraction at any moment.
 - **Daily Reviews:** The agent will automatically initiate a tutoring session daily at 15:00 (3:00 PM) to test your knowledge. *(You can customize this time by modifying the `cron_schedule` in `SKILL.md` or asking the agent to change it).*
 
 ## License

@@ -8,7 +8,15 @@ license: MIT
 triggers:
   - on_message
   - cron
+  - manual
 cron_schedule: "0 15 * * *"
+manual_trigger_keywords:
+  - "帮我总结"
+  - "提取知识"
+  - "记录一下"
+  - "save this"
+  - "extract knowledge"
+  - "summarize for knowledge base"
 ---
 
 # Identity
@@ -22,21 +30,44 @@ Philosophy: As Large Language Models become more powerful, there is a risk that 
 
 ---
 
-## Phase 1: Knowledge Extraction (Trigger: `on_message`)
+## Phase 1: Knowledge Extraction (Triggers: `on_message`, `manual`)
 
-When triggered by `on_message`, perform the following steps:
+This phase has two entry points:
+- **Automatic (`on_message`):** Lightweight pre-scan first, extract only when warranted.
+- **Manual (`manual`):** User explicitly requests extraction via keywords like "帮我总结", "提取知识", "记录一下", "save this", "extract knowledge", or "summarize for knowledge base". Manual triggers skip the pre-scan and go directly to extraction.
 
-1. **Evaluate Input:** Analyze the recent conversation. Determine if it contains dense technical knowledge, complex debugging steps, system architectures (e.g., 1F1B, Zero Bubble), or significant technical decisions, especially focusing on areas where the user showed a lack of understanding or needed clarification.
-2. **Decision:** If the conversation lacks significant technical depth or is just routine chatter, do nothing and respond to the user normally. If it represents a learning opportunity, proceed to extraction.
-3. **Extraction & Formatting:** Extract the core technical concept, context, and solution. Format this extracted knowledge into a clear, structured Markdown document written entirely in **the user's conversational language**.
-4. **File Operations:**
-   - Determine a concise topic name for the file (e.g., `Docker_Networking`).
-   - Determine the target directory. By default, create a `knowledge_base` directory in the user's home directory (e.g., `~/knowledge_base/`). **If the user has previously instructed you to use a custom directory**, use that custom path instead.
-   - The file path should follow the convention: `<Target_Directory>/YYYY-MM-DD_TopicName.md`.
-   - Use file system tools to check if a file with a similar topic already exists.
-   - **If it exists:** Read the existing file. Merge the new insights into the existing content. You must append a section titled `## Update History` (in the user's language) detailing what was added and when.
-   - **If it does not exist:** Create a new file.
-   - Use file system tools to save the finalized markdown content to the file.
+### Step 0: Entry Point Routing
+- If triggered by `manual` (user keyword): skip to Step 3 (Extraction).
+- If triggered by `on_message`: proceed to Step 1 (Pre-Scan).
+
+### Step 1: Adaptive Pre-Scan (minimal tokens)
+- Scan scope is adaptive: briefly skim the conversation for technical signals. For a short exchange, 1-2 turns suffice. For a long multi-turn conversation, scan more broadly — there may be multiple extraction opportunities spread across different topics.
+- Quick checklist — if NONE of these are true, stop here (no extraction):
+  - The user learned a non-trivial technical concept or corrected a misconception
+  - A complex bug was diagnosed with non-obvious root cause
+  - A design/architecture decision was discussed with trade-offs
+  - The user explicitly expressed confusion or asked for clarification on a technical point
+- **Default is NO.** If the signal is weak, do not extract. The vast majority of routine interactions should result in no action.
+- **Multiple extractions are allowed** across a long conversation, as long as each extraction covers a distinct topic with no overlap (enforced by Step 2).
+
+### Step 2: Overlap Check (before extraction)
+- Before extracting, list existing files in the knowledge base directory and scan filenames.
+- If the apparent topic is already covered by an existing file, briefly check its content (e.g., read headings only).
+- Only proceed to extraction if the new information is genuinely additive — don't duplicate what's already recorded.
+
+### Step 3: Extraction & Formatting
+- Extract only the core technical concept, context, and solution.
+- Format into a concise, structured Markdown document in **the user's conversational language**.
+- Keep it brief. A single well-written paragraph plus key takeaways is better than a verbose multi-section document.
+
+### Step 4: File Operations
+- Determine a concise topic name for the file (e.g., `Docker_Networking`).
+- Determine the target directory: default `~/knowledge_base/`. If the user has previously set a custom directory, use that.
+- File naming: `<Target_Directory>/YYYY-MM-DD_TopicName.md`.
+- Check if a similar file already exists:
+  - **If it exists:** Read the existing file. Merge only genuinely new insights. Append `## Update History` section (in user's language) detailing what was added and when.
+  - **If it does not exist:** Create a new file.
+- Save the finalized markdown content.
 
 ---
 
