@@ -2,33 +2,22 @@
 
 English | [简体中文](./README_zh.md)
 
-## The Philosophy: Don't Let AI Make You Dumber
+## Overview
 
-Using AI tools comes with a real concern: **AI dominates the thinking, and you become an accessory.** You ask, it reasons. You copy-paste, it creates. Over time, you stop thinking deeply and become dependent — the human is no longer in charge.
+Using AI tools comes with a real concern: **AI dominates the thinking, and you become an accessory.** You ask, it reasons. You copy-paste, it creates. Over time, you stop thinking deeply and become dependent.
 
-But using AI *well* can actually make you grow faster. **The key is reflection and review.** You encounter a problem you don't understand, and through conversation with AI you figure it out — great. But if you don't consolidate that knowledge, next time you'll be just as lost. If you do reflect and internalize it, you become genuinely stronger.
+But using AI *well* can make you grow faster. **The key is reflection and review.** When you figure out something you didn't understand through conversation with AI, that's great — but if you don't consolidate it, next time you'll be just as lost. If you reflect and internalize it, you become genuinely stronger.
 
-That's exactly what this skill does: it automatically captures the knowledge from your AI conversations and actively quizzes you later to make sure you truly learned it. **AI stays a powerful tool — your personalized tutor — but you remain in charge, and you keep getting smarter.**
-
-## Project Overview
-
-`knowledge-tutor` seamlessly integrates into your daily chat interactions, acting as both an active listener and a proactive teacher. It builds a highly personalized Markdown knowledge base dedicated to your specific knowledge gaps. You can view, edit, and review these Markdown files directly at any time.
-
-It performs two core functions:
-1. **Passive Knowledge Extraction:** Intelligently detects valuable technical insights from your conversations and structures them into your personal Markdown knowledge base. Uses a lightweight pre-scan to avoid unnecessary extraction, checks for overlap with existing notes, and works adaptively across short or long conversations.
-2. **Active Spaced Repetition:** Utilizes scheduled tasks to review your knowledge base and proactively quizzes you using Socratic questioning, ensuring you actively recall and retain complex technical concepts.
+`knowledge-tutor` does exactly this: it captures the knowledge from your AI conversations into a personal Markdown knowledge base, focusing on your weak spots. Review on your own schedule — the learning pace is yours to control. **AI stays a powerful tool, but you remain in charge.**
 
 ## Features
 
-- **Restrained Extraction:** Uses a minimal-token pre-scan to judge whether extraction is worth doing. Defaults to "no" — only extracts when there's genuine technical depth. Never duplicates existing knowledge base content.
-- **Adaptive Scanning:** Scan scope adjusts to conversation length. Long multi-turn conversations can yield multiple extractions, each covering a distinct topic with no overlap.
-- **Manual Trigger:** Prefer to decide for yourself? Use keywords like "帮我总结", "提取知识", "记录一下", "save this", or "extract knowledge" to manually trigger extraction at any time, bypassing the pre-scan.
-- **Socratic Quizzing:** Tests your understanding through guided, open-ended questions rather than simple multiple-choice.
-- **Adaptive Language:** The skill's internal logic and reasoning are driven by English for optimal LLM instruction adherence. However, **all user interactions and stored knowledge base notes will automatically adapt to the language you use during the conversation**.
+- **Restrained Extraction:** Lightweight pre-scan judges whether extraction is worth doing. Defaults to "no" — only acts on genuine technical depth. Never duplicates existing notes.
+- **Adaptive Scanning:** Scan scope adjusts to conversation length. Long multi-turn conversations can yield multiple extractions, each on a distinct topic.
+- **Manual Trigger:** Say "帮我总结", "提取知识", "记录一下", "save this", or "extract knowledge" to trigger extraction on demand.
+- **Adaptive Language:** All user-facing output and knowledge base content adapts to the language you use in conversation.
 
 ## Install
-
-### Google Antigravity
 
 ```bash
 mkdir -p ~/.gemini/antigravity/skills/knowledge-tutor
@@ -36,13 +25,23 @@ curl -o ~/.gemini/antigravity/skills/knowledge-tutor/SKILL.md \
   https://raw.githubusercontent.com/niyunsheng/knowledge-tutor/main/SKILL.md
 ```
 
-*(Note: Ensure the agent has necessary file system permissions to read and write to the target directory. By default, notes are stored in a `knowledge_base` folder. You can easily change this by simply telling the agent your preferred path in the chat!)*
+*(Notes are stored in `~/knowledge_base/` by default. Tell the agent if you prefer a different path.)*
 
 ## Usage
 
-- **Simply Chat:** Have deep technical discussions with your agent. The skill will adaptively detect and save knowledge, avoiding redundant extraction.
-- **Manual Trigger:** Say keywords like "extract knowledge", or "save this" to manually trigger extraction at any moment.
-- **Daily Reviews:** The agent will automatically initiate a tutoring session daily at 15:00 (3:00 PM) to test your knowledge. *(You can customize this time by modifying the `cron_schedule` in `SKILL.md` or asking the agent to change it).*
+- **Simply Chat:** Have deep technical discussions. The skill adaptively detects and saves knowledge, avoiding redundancy.
+- **Manual Trigger:** Say "extract knowledge" or "save this" to trigger extraction at any moment.
+- **Self-Paced Review:** Browse `~/knowledge_base/` anytime. Set a cron job or calendar reminder to review on your own schedule.
+
+## Universal Prompt Template
+
+Don't want to install anything? Paste this into any chatbot. Replace the bracketed parts.
+
+```
+Generate knowledge base notes from our conversation.
+My background: [your role, focus areas, e.g. AI Infra engineer working on training/inference systems, GPU clusters, MLOps].
+Output: Markdown, in the same language as the conversation.
+```
 
 ## License
 
